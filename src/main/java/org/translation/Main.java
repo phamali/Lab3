@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-
 /**
  * Main class for this program.
  * Complete the code according to the "to do" notes.<br/>
@@ -17,6 +16,8 @@ import java.util.Scanner;
 public class Main {
 
     public static final String END_PROMPT = "quit";
+    private static final CountryCodeConverter CCC = new CountryCodeConverter();
+    private static final LanguageCodeConverter LCC = new LanguageCodeConverter();
     /**
      * This is the main entry point of our Translation System!<br/>
      * A class implementing the Translator interface is created and passed into a call to runProgram.
@@ -37,8 +38,7 @@ public class Main {
      * @param translator the Translator implementation to use in the program
      */
     public static void runProgram(Translator translator) {
-        CountryCodeConverter countryCodeConverter = new CountryCodeConverter();
-        LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
+
         while (true) {
             String country = promptForCountry(translator);
             if (END_PROMPT.equals(country)) {
@@ -56,8 +56,8 @@ public class Main {
             //            convert it back to its 2-letter language code when calling translate.
             //            Note: you should use the actual names in the message printed below though,
             //            since the user will see the displayed message.
-            System.out.println(country + " in " + language + " is " + translator.translate(countryCodeConverter
-                    .fromCountry(country), languageCodeConverter.fromLanguage(language)));
+            System.out.println(country + " in " + language + " is " + translator.translate(CCC
+                    .fromCountry(country), LCC.fromLanguage(language)));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -75,7 +75,9 @@ public class Main {
         //            and print them out; one per line
         //      hint: class Collections provides a static sort method
         // TODO Task: convert the country codes to the actual country names before sorting
-
+        for (int i = 0; i < countries.size(); i++) {
+            countries.set(i, CCC.fromCountry(countries.get(i)));
+        }
         Collections.sort(countries);
         for (String country : countries) {
             System.out.println(country);
@@ -91,9 +93,13 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
 
-        // TODO Task: replace the line below so that we sort the languages alphabetically and print them out; one per line
+        // TODO Task: replace the line below so that we sort the languages alphabetically and print them out; one per
+        //  line
         // TODO Task: convert the language codes to the actual language names before sorting
         List<String> languages = translator.getCountryLanguages(country);
+        for (int i = 0; i < languages.size(); i++) {
+            languages.set(i, LCC.fromLanguage(languages.get(i)));
+        }
         Collections.sort(languages);
         for (String language : languages) {
             System.out.println(language);
