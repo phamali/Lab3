@@ -79,7 +79,7 @@ public class Main {
         }
         Collections.sort(countries);
         for (String country : countries) {
-            System.out.println(country);
+            System.out.print(country + "\n");
         }
 
         System.out.println("select a country from above:");
@@ -101,7 +101,7 @@ public class Main {
         }
         Collections.sort(languages);
         for (String language : languages) {
-            System.out.println(language);
+            System.out.print(language + "\n");
         }
 
         System.out.println("select a language from above:");
