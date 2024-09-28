@@ -38,7 +38,6 @@ public class Main {
      * @param translator the Translator implementation to use in the program
      */
     public static void runProgram(Translator translator) {
-
         while (true) {
             String country = promptForCountry(translator);
             if (END_PROMPT.equals(country)) {
@@ -76,7 +75,7 @@ public class Main {
         //      hint: class Collections provides a static sort method
         // TODO Task: convert the country codes to the actual country names before sorting
         for (int i = 0; i < countries.size(); i++) {
-            countries.set(i, CCC.fromCountry(countries.get(i)));
+            countries.set(i, CCC.fromCountryCode(countries.get(i)));
         }
         Collections.sort(countries);
         for (String country : countries) {
@@ -98,7 +97,7 @@ public class Main {
         // TODO Task: convert the language codes to the actual language names before sorting
         List<String> languages = translator.getCountryLanguages(country);
         for (int i = 0; i < languages.size(); i++) {
-            languages.set(i, LCC.fromLanguage(languages.get(i)));
+            languages.set(i, LCC.fromLanguageCode(languages.get(i)));
         }
         Collections.sort(languages);
         for (String language : languages) {
